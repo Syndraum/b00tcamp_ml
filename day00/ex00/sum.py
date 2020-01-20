@@ -114,6 +114,17 @@ def vec_linear_mse(x, y, theta):
     return dot(tmp, tmp)/len(y)
 
 
+def gradient(x, y, theta):
+    mysum = 0.0
+    for i in range(len(y)):
+        mysum += (dot(theta, x[i]) - y[i])
+    return mysum/len(y)
+
+
+def vec_gradient(x, y, theta):
+    return (x.dot(theta) - y).dot(x)/len(y)
+
+
 Z = np.array([0])
 X = np.array([0, 15, -9, 7, 12, 3, -21])
 X1 = np.array([0, 15, -9, 7, 12, 3, -21])
@@ -158,3 +169,4 @@ W = np.array([0,0,0])
 
 print(vec_linear_mse(X, Y, Z))
 print(vec_linear_mse(X, Y, W))
+print(vec_gradient(X, Y, W))
