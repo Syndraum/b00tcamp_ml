@@ -93,6 +93,15 @@ def mse(y, y_hat):
     return mysum/len(y)
 
 
+def vec_mse(y, y_hat):
+    if not isinstance(y_hat, np.ndarray) or not isinstance(y, np.ndarray):
+        return None
+    if y_hat.shape[0] != y.shape[0]:
+        return None
+    tmp = y_hat - y
+    return dot(tmp, tmp)/len(y)
+
+
 Z = np.array([0])
 X = np.array([0, 15, -9, 7, 12, 3, -21])
 X1 = np.array([0, 15, -9, 7, 12, 3, -21])
@@ -120,5 +129,5 @@ Z = np.array([
 # print(defmat_mat_prod(W, Z))
 # print(defmat_mat_prod(Z, W))
 # print(W.dot(X))
-print(mse(X, Y))
-print(mse(X, X))
+print(vec_mse(X, Y))
+print(vec_mse(X, X))
