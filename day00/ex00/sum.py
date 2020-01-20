@@ -82,10 +82,21 @@ def defmat_mat_prod(x, y):
     return np.swapaxes(mat.reshape(x.shape[0], y.shape[1]), 0, 1).astype(int)
 
 
+def mse(y, y_hat):
+    if not isinstance(y_hat, np.ndarray) or not isinstance(y, np.ndarray):
+        return None
+    if y_hat.shape[0] != y.shape[0]:
+        return None
+    mysum = 0.0
+    for i in range(len(y)):
+        mysum += (y_hat[i] - y[i])**2
+    return mysum/len(y)
+
+
 Z = np.array([0])
-X = np.array([0, 15, -9, 7, 12, 3, -21]).reshape((7, 1))
+X = np.array([0, 15, -9, 7, 12, 3, -21])
 X1 = np.array([0, 15, -9, 7, 12, 3, -21])
-Y = np.array([2, 14, -13, 5, 12, 4, -19]).reshape((7, 1))
+Y = np.array([2, 14, -13, 5, 12, 4, -19])
 W = np.array([
     [-8, 8, -6, 14, 14, -9, -4],
     [2, -11, -2, -11, 14, -2, 14],
@@ -109,3 +120,5 @@ Z = np.array([
 # print(defmat_mat_prod(W, Z))
 # print(defmat_mat_prod(Z, W))
 # print(W.dot(X))
+print(mse(X, Y))
+print(mse(X, X))
