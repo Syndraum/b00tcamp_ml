@@ -115,14 +115,17 @@ def vec_linear_mse(x, y, theta):
 
 
 def gradient(x, y, theta):
-    mysum = 0.0
-    for i in range(len(y)):
-        mysum += (dot(theta, x[i]) - y[i])
-    return mysum/len(y)
+    gradient = np.array([])
+    for t in range(x.shape[1]):
+        mysum = 0.0
+        for i in range(x.shape[0]):
+            mysum += ((theta.dot(x[i]) - y[i]) * x[i][t])
+        gradient = np.append(gradient, mysum/x.shape[0])
+    return gradient
 
 
 def vec_gradient(x, y, theta):
-    return (x.dot(theta) - y).dot(x)/len(y)
+    return (x.dot(theta) - y).dot(x)/x.shape[0]
 
 
 Z = np.array([0])
@@ -156,17 +159,20 @@ Z = np.array([
 # print(vec_mse(X, X))
 
 X = np.array([
-    [ -6, -7, -9],
-    [ 13, -2, 14],
-    [ -7, 14, -1],
-    [ -8, -4, 6],
-    [ -5, -9, 6],
-    [ 1, -5, 11],
-    [ 9, -11, 8]])
+    [-6, -7, -9],
+    [13, -2, 14],
+    [-7, 14, -1],
+    [-8, -4, 6],
+    [-5, -9, 6],
+    [1, -5, 11],
+    [9, -11, 8]])
 Y = np.array([2, 14, -13, 5, 12, 4, -19])
-Z = np.array([3,0.5,-6])
-W = np.array([0,0,0])
+Z = np.array([3, 0.5, -6])
+W = np.array([0, 0, 0])
 
-print(vec_linear_mse(X, Y, Z))
-print(vec_linear_mse(X, Y, W))
+# print(vec_linear_mse(X, Y, Z))
+# print(vec_linear_mse(X, Y, W))
 print(vec_gradient(X, Y, W))
+print(gradient(X, Y, W))
+print(vec_gradient(X, Y, Z))
+print(gradient(X, Y, Z))
