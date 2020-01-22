@@ -22,8 +22,6 @@ def fig1():
     plt.ylabel('Space driving score')
     plt.xlabel('Quantity of blue pill (in micrograms)')
     plt.legend(loc='lower center', bbox_to_anchor=(0.3, 1.0), ncol=2, edgecolor=None)
-    # plt.legend(bbox_to_anchor=(0., 1.02, 1., .102), loc='lower left',
-    #            ncol=2, mode="expand", borderaxespad=0.)
     plt.grid(True)
     plt.show()
 
@@ -38,8 +36,9 @@ def fig2():
             linear_model1.theta[1] = i
             Y_model1 = linear_model1.predict_(Xpill)
             cost = np.append(cost, linear_model1.mse_(Yscore, Y_model1))
-        plt.plot(theta1, cost, color='#050505')
+        color = '#0' + str(c) + '0' + str(c) + '0' + str(c)
+        plt.plot(theta1, cost, color=color)
     plt.grid(True)
     plt.show()
 
-fig2()
+fig1()

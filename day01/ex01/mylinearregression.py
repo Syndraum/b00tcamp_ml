@@ -28,13 +28,19 @@ class MyLinearRegression():
                 np.dot(Xpp, self.theta) - Y)) / (2 * X.shape[0])
 
     def mse_(self, y, y_hat):
-        if not isinstance(y_hat, np.ndarray) or not isinstance(y, np.ndarray):
-            return None
-        if y_hat.shape[0] != y.shape[0]:
-            return None
+        # if not isinstance(y_hat, np.ndarray) or not isinstance(y, np.ndarray):
+        #     return None
+        # if y_hat.shape[0] != y.shape[0]:
+        #     return None
         mysum = 0.0
         for i in range(len(y)):
             mysum += (y_hat[i] - y[i])**2
+        return mysum/len(y)
+    
+    def linear_mse(self, x, y):
+        mysum = 0.0
+        for i in range(len(y)):
+            mysum += (np.dot(self.theta, x[i]) - y[i])**2
         return mysum/len(y)
 
 
