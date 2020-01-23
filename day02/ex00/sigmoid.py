@@ -2,17 +2,12 @@ import math
 
 
 def sigmoid_(x):
-    def func(x):
-        return (1.0 / (1 + math.exp(-x)))
     if isinstance(x, list):
-        mylist = []
-        for elmt in x:
-            mylist.append(func(elmt))
-        return mylist
-    elif isinstance(x, int):
-        return func(x)
+        return list(map(sigmoid_, x))
+    elif isinstance(x, int) or isinstance(x, float):
+        return 1.0 / (1 + math.exp(-x))
     else:
-        return None
+        None
 
 
 # x = -4
