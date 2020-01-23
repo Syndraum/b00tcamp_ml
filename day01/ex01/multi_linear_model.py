@@ -15,14 +15,20 @@ myLR = MyLR([[1.0], [1.0], [1.0], [1.0]])
 myLR_age = MyLR([[1000.0], [-1.0]])
 myLR_thrush = MyLR([[1.0], [-1.0]])
 myLR_meter = MyLR([[1.0], [-1.0]])
-print(myLR_age.theta)
-myLR.fit_(X, Yprice, alpha=2e-6, n_cycle=600000)
+# myLR.fit_(X, Yprice, alpha=2e-6, n_cycle=600000)
 # myLR_age.fit_(Xage, Yprice, alpha=0.025, n_cycle=100000)
 # myLR_thrush.fit_(Xthrush, Yprice, alpha=0.00000007, n_cycle=100000)
 # myLR_meter.fit_(Xmeter, Yprice, alpha=0.00017, n_cycle=200000)
 # print(myLR_age.theta)
-# RMSE_age = myLR_age.mse_(Xage[:, 0].reshape(-1, 1), Yprice)
+
+print(myLR.linear_mse(X, Yprice))
+myLR.fit_(X, Yprice, alpha=1e-4, n_cycle=600000)
+print(myLR.theta)
+
+# myLR_age.fit_(X[:, 0].reshape(-1, 1), Yprice, alpha=2.5e-5, n_cycle=100000)
+# RMSE_age = myLR_age.linear_mse(Xage[:, 0].reshape(-1, 1), Yprice)
 # print(RMSE_age)
+print(myLR.linear_mse(X, Yprice))
 
 
 def fig_age():
@@ -59,6 +65,6 @@ def figmeter():
 # figage()
 # figthrush()
 # figmeter()
-fig_age()
+# fig_age()
 
 # print(RMSE_age)

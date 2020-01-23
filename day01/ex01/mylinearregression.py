@@ -36,12 +36,20 @@ class MyLinearRegression():
         for i in range(len(y)):
             mysum += (y_hat[i] - y[i])**2
         return mysum/len(y)
-    
+
     def linear_mse(self, x, y):
         mysum = 0.0
+        predic = self.predict_(x)
         for i in range(len(y)):
-            mysum += (np.dot(self.theta, x[i]) - y[i])**2
+            mysum += (predic[i] - y[i])**2
         return mysum/len(y)
+
+    def normalequation_(self, X, Y):
+        Xpp = np.insert(X, 0, 1, axis=1)
+        # print("======== NORMA ========")
+        self.theta = np.dot((np.dot(Xpp.T, Xpp))**-1, np.dot(Xpp.T, Y))
+
+
 
 
 # X = np.array([[1., 1., 2., 3.], [5., 8., 13., 21.], [34., 55., 89.,144.]])
