@@ -4,19 +4,7 @@ import math
 
 
 def vec_log_loss_(y_true, y_pred, m, eps=1e-15):
-    def func(y_true, y_pred):
-        return (
-            y_true * math.log(y_pred + eps)
-            + (1 - y_true) * math.log(1 - y_pred + eps))
-    mysum = 0.0
-    if isinstance(y_true, np.ndarray) and isinstance(y_pred, np.ndarray):
-        if len(y_pred) != m or len(y_true) != m:
-            return None
-        for i in range(m):
-            mysum += func(y_true[i], y_pred[i])
-        return -mysum / m
-    else:
-        return -func(y_true, y_pred)
+    return (-(np.dot(y_true, np.log(y_pred + eps)) + np.dot((1 - y_true), np.log(1 - y_pred + eps)))/m)
 
 
 x = 4
@@ -38,4 +26,5 @@ y_true = np.array([1, 0, 1])
 theta = np.array([-1.5, 2.3, 1.4, 0.7])
 y_pred = sigmoid_(np.dot(x_new, theta))
 m = len(y_true)
+print(y_true.shape, y_pred.shape)
 print(vec_log_loss_(y_true, y_pred, m))
