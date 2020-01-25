@@ -24,13 +24,14 @@ class LogisticRegressionBatchGd:
                 + np.dot((1 - y_true), np.log(1 - y_pred + eps)))/m)
 
     def fit(self, x_train, y_train):
-        self.thetas = np.zeros((x_train.shape[1], 1))
+        self.thetas = np.ones((x_train.shape[1], 1))
         for n in range(self.max_iter + 1):
             predict = self.predict(x_train)
+            sig = self.sigmoid_(np.dot(x_train, self.thetas))
             if self.verbose is True and n % (self.max_iter/10) == 0:
-                loss = self.vec_log_loss_(y_train.reshape(y_train.shape[0]), predict.reshape(predict.shape[0]), len(y_train))
+                loss = self.vec_log_loss_(y_train.reshape(y_train.shape[0]), sig.reshape(predict.shape[0]), len(y_train))
                 print(f"epoch  {n}\t: loss {loss}")
-            self.thetas -= self.alpha*(np.dot(x_train.T, predict - y_train)) / (x_train.shape[0] + 1)
+            self.thetas -= self.alpha*(np.dot(x_train.T, sig - y_train)) / (x_train.shape[0])
 
     def predict(self, x_train):
         return np.around(self.sigmoid_(np.dot(x_train, self.thetas)))
@@ -40,11 +41,11 @@ class LogisticRegressionBatchGd:
 
 
 df_train = pd.read_csv(
-    '../dataset/dataset/train_dataset_clean.csv',
+    '../dataset/train_dataset_clean.csv',
     delimiter=',', header=None, index_col=False)
 x_train, y_train = np.array(df_train.iloc[:, 1:82]), df_train.iloc[:, 0]
 df_test = pd.read_csv(
-    '../dataset/dataset/test_dataset_clean.csv',
+    '../dataset/test_dataset_clean.csv',
     delimiter=',', header=None, index_col=False)
 x_test, y_test = np.array(df_test.iloc[:, 1:82]), df_test.iloc[:, 0]
 model = LogisticRegressionBatchGd(
